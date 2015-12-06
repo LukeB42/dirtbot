@@ -45,8 +45,8 @@ class DirtBot(object):
     
     def connect(self, server):
         """
-        Create a new Connection instance for a server
-        object as defined in our config.
+        Create a new Connection instance for a server object as defined in our
+        config.
         """
         if not 'host' in server: return
         c = Connection(self, server)
@@ -56,6 +56,7 @@ class DirtBot(object):
 
     def run(self):
         while 1:
+            time.sleep(0.5)
 
             # Event scheduler goes here.
 
@@ -110,13 +111,13 @@ class Connection(object):
         self.cmd('user', "%s %s * :%s" % (self.nick, self.nick, self.realname))
 
     def msg(self, target, msg):
-        self.cmd('privmsg', (target + ' :' + msg))
+        self.cmd('privmsg', target + ' :' + msg)
     
     def cmd(self, command, args=[], prefix=None):
         if prefix:
-            self.socket.send('%s %s\n' % (prefix + command.upper(), ''.join(args)))
+            self.socket.send('%s %s\n' % (prefix + command.upper(), args))
         else:
-            self.socket.send('%s %s\n' % (command.upper(), ''.join(args)))
+            self.socket.send('%s %s\n' % (command.upper(), args))
 
     def read(self, line):
         """
@@ -305,7 +306,7 @@ class Script(object):
         return self.env.keys()
 
 class Config(dict):
-    def __init__(self, logger, file_path, *args,**kwargs):
+    def __init__(self, logger, file_path, *args, **kwargs):
         dict.__init__(self, *args, **kwargs) 
         self.log       = logger
         self.file_path = file_path
@@ -417,9 +418,7 @@ if __name__ == "__main__":
         try: print "%s: %s" % (level, message)
         except: pass
 
-    # if the argument to Config() here begins with
-    # "http" then we'll load it from the remote host.
-    config  = Config(logger, sys.argv[1] if len(sys.argv) > 1 else "config.json")
+    config = Config(logger, sys.argv[1] if len(sys.argv) > 1 else "config.json")
 
     dirtbot = DirtBot(config)
     dirtbot.scripts.reload()
