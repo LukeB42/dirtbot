@@ -1,0 +1,14 @@
+{
+    "nick":      "dirtbot", 
+    "realname":  "Automata", 
+    "run_as":    "luke",
+    "debug":     true,
+    "scripts":   "scripts",
+    "daemonise": false,
+    "servers": [
+        {
+            "host": "localhost",
+            "channels": ["#test"]
+        }
+   ]
+}
