@@ -1,0 +1,2 @@
+# dirtbot
+An IRC automaton.
