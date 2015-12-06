@@ -9,6 +9,7 @@ Psybernetics 2015.
 import os
 import sys
 import pwd
+import copy
 import json
 import time
 import fcntl
@@ -129,7 +130,10 @@ class Connection(object):
             return
         self.bot.config.log(line, self.host)
         # Execute scripts
-        env = { 'connection': self, 'line': line }
+        env = {
+                'connection': self,
+                'line': copy.deepcopy(line)
+              }
         for script in self.bot.scripts.values():
             try: script.execute(env)
             except Exception, e:

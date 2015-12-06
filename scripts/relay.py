@@ -1,4 +1,4 @@
-# Relay messages from a server to a channel
+# Relay messages from channels on one server to channels on another
 
 TO_HOST = ""
 
